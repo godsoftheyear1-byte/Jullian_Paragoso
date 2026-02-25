@@ -1,10 +1,11 @@
 
 import './App.css'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import AIChat from './components/AIChat'
 import IntroAnimation from './components/IntroAnimation'
 import ProjectModal from './components/ProjectModal'
 import SkillModal from './components/SkillModal'
+import SkillsProgress from './components/SkillsProgress'
 
 // Project Data
 const projectsData = [
@@ -164,8 +165,18 @@ const skillsData = {
 
 
 const Home = () => {
+  const homeRef = useRef(null);
+
+  useEffect(() => {
+    if (homeRef.current) {
+      setTimeout(() => {
+        homeRef.current.classList.add('fade-in-visible');
+      }, 100);
+    }
+  }, []);
+
   return (
-    <div className="Home">
+    <div ref={homeRef} className="Home fade-in-section">
        <img src="logo.png" className="logo" alt="logo" title="Jullian Paragoso - Frontend Developer" />
       <nav className="navbar">
         <a href="#" title="Go to top of page"><i className="fa-solid fa-house"></i> Home</a>
@@ -182,12 +193,46 @@ const Home = () => {
 const Body = ({ onOpenAI }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedSkill, setSelectedSkill] = useState(null);
+  
+  const bodyRef = useRef(null);
+  const aboutRef = useRef(null);
+  const experienceRef = useRef(null);
+  const projectsRef = useRef(null);
+  const contactRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in-visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const refs = [bodyRef, aboutRef, experienceRef, projectsRef, contactRef];
+    refs.forEach((ref) => {
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+    });
+
+    return () => {
+      refs.forEach((ref) => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
+        }
+      });
+    };
+  }, []);
 
   return (
     <div className="body">
-      <div className="body-content">
-        <h2><i className="fa-solid fa-heart"></i> Gay Obsessed developer</h2>
-         <h1><i className="fa-solid fa-code"></i> I'm <span>Jullian Paragoso</span></h1>
+      <div ref={bodyRef} className="body-content fade-in-section">
+        <h2 className="gay-text"><i className="fa-solid fa-heart"></i> Gay Obsessed developer</h2>
+         <h1><i className="fa-solid fa-code"></i> I'm <span className="name-highlight">Jullian Paragoso</span></h1>
          <h2><i className="fa-solid fa-laptop-code"></i> Frontend Developer</h2>
           <p>I'm a Frontend Developer with a passion for creating beautiful and functional<br/> websites. I have a strong background in HTML, CSS, and JavaScript, and I'm always eager<br/> to learn new technologies and improve my skills.</p>
           <img src="profile.png" className="profile" alt="profile "/>
@@ -206,7 +251,7 @@ const Body = ({ onOpenAI }) => {
       </div>
 
 
-      <div id="about" className="about">
+      <div id="about" ref={aboutRef} className="about fade-in-section">
         <h1 className='about-title'><i className="fa-solid fa-circle-info"></i> About</h1>
         <div className="about-content">
           <img src="keyboard.png" className="keyboard" alt="keyboard "/>
@@ -224,7 +269,7 @@ const Body = ({ onOpenAI }) => {
          </div>
       </div>
 
-      <div id="experience" className="Experience">
+      <div id="experience" ref={experienceRef} className="Experience fade-in-section">
         <h1><i className="fa-solid fa-star"></i> Experience</h1>
       <div className="experience-content">
         <div className="experience-item">
@@ -274,13 +319,10 @@ const Body = ({ onOpenAI }) => {
       </div>    
     </div>
 
+    {/* Skills Progress Section */}
+    <SkillsProgress />
 
-
-
-
-
-    
-    <div id="projects" className="Projects">
+    <div id="projects" ref={projectsRef} className="Projects fade-in-section">
       <h1><i className="fa-solid fa-rocket"></i> Projects</h1>
       <div className="projects-grid">
         {projectsData.map((project) => (
@@ -303,7 +345,7 @@ const Body = ({ onOpenAI }) => {
       </div>
     </div>
 
-    <div id="contact" className="Contact">
+    <div id="contact" ref={contactRef} className="Contact fade-in-section">
       <h1><i className="fa-solid fa-paper-plane"></i> Contact</h1>
       <div className="contact-content">
         <a href="https://mail.google.com/mail/u/0/#inbox?compose=DVgPXsJjSfvjjXjdhkTcdNrQWmmpBhMwhVBLshXghLvsrvqmzsWTWZkjJTwmhGfrphmJLQnfJjCSDjqsxfQDZdbtmBmNmsVLbMmvtnWvqWNDZCsGDMLnRdSSlfgDFbrTXRcfkTSMRQfsjXVhzwzCwqJhDgrbTbwsHvRMXKnfCNVJnSNQgllFZSGktFmdtWTdNdrVNWhxRvJWWLdGHkFqlCRCqqSXtLRRjRktLHqLFWT" className="contact-item card-beam" title="Send an email to Jullian">

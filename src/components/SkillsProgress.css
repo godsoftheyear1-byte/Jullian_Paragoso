@@ -1,0 +1,243 @@
+/* Skills Progress Section */
+.skills-progress {
+  text-align: center;
+  padding: 80px 30px;
+  margin-top: 80px;
+  background-color: transparent;
+  color: var(--text);
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+.skills-progress.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skills-progress h1 {
+  font-size: 32px;
+  color: var(--text);
+  margin-bottom: 40px;
+  text-shadow: 0 0 15px rgba(127, 219, 255, 0.4);
+}
+
+.skills-bars {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.skill-item {
+  background: var(--cardBg);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: 1px solid rgba(127, 219, 255, 0.2);
+  padding: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(127, 219, 255, 0.2), transparent);
+  animation: beam 4s infinite;
+  pointer-events: none;
+}
+
+.skill-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(127, 219, 255, 0.3);
+  border-color: var(--aqua);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.skill-name {
+  font-size: 18px;
+  color: var(--aqua);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-name i {
+  font-size: 20px;
+  animation: pulse 2s infinite;
+}
+
+.skill-percent {
+  font-size: 16px;
+  color: var(--teal);
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(127, 219, 255, 0.4);
+}
+
+.skill-bar {
+  width: 100%;
+  height: 14px;
+  background: rgba(0, 31, 63, 0.6);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.skill-progress-bar {
+  height: 100%;
+  border-radius: 8px;
+  position: relative;
+  width: 0;
+  transition: width 2s ease-in-out 0.5s;
+  box-shadow: 0 0 15px rgba(127, 219, 255, 0.5);
+}
+
+.skills-progress.visible .skill-progress-bar {
+  width: var(--percent, 0%);
+}
+
+.skill-progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+/* Individual Skill Bar Colors */
+.html-bar {
+  background: linear-gradient(90deg, #e34c26, #f06529);
+  --percent: 95%;
+  animation: htmlGlow 2s infinite;
+}
+
+.css-bar {
+  background: linear-gradient(90deg, #264de4, #2965f1);
+  --percent: 90%;
+  animation: cssGlow 2s infinite;
+}
+
+.js-bar {
+  background: linear-gradient(90deg, #f0db4f, #f7df1e);
+  --percent: 85%;
+  animation: jsGlow 2s infinite;
+}
+
+/* Shimmer Effect */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Glow Animations */
+@keyframes htmlGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(227, 76, 38, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(240, 101, 41, 0.8);
+  }
+}
+
+@keyframes cssGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(38, 77, 228, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(41, 101, 241, 0.8);
+  }
+}
+
+@keyframes jsGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(240, 219, 79, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(247, 223, 30, 0.8);
+  }
+}
+
+/* Responsive Design for Skills Progress */
+@media (max-width: 768px) {
+  .skills-progress {
+    padding: 50px 20px;
+  }
+  
+  .skills-progress h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+  
+  .skills-bars {
+    gap: 20px;
+  }
+  
+  .skill-item {
+    padding: 15px;
+  }
+  
+  .skill-name {
+    font-size: 16px;
+  }
+  
+  .skill-name i {
+    font-size: 18px;
+  }
+  
+  .skill-percent {
+    font-size: 14px;
+  }
+  
+  .skill-bar {
+    height: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-progress {
+    padding: 40px 15px;
+  }
+  
+  .skills-progress h1 {
+    font-size: 20px;
+  }
+  
+  .skill-name {
+    font-size: 14px;
+  }
+  
+  .skill-name i {
+    font-size: 16px;
+  }
+  
+  .skill-percent {
+    font-size: 13px;
+  }
+  
+  .skill-bar {
+    height: 10px;
+  }
+}
