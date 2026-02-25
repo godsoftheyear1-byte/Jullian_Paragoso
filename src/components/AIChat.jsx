@@ -64,21 +64,8 @@ const AIChat = ({ isOpen, onClose }) => {
   }, [messages, isOpen, scrollToBottom]);
 
   const checkConnection = async () => {
-    if (USE_FALLBACK) {
-      setConnectionStatus('connected');
-      return;
-    }
-    
-    try {
-      const response = await fetch(OLLAMA_ENDPOINT, { method: 'GET' });
-      if (response.ok) {
-        setConnectionStatus('connected');
-      } else {
-        setConnectionStatus('connected'); // Use fallback, so show as connected
-      }
-    } catch (error) {
-      setConnectionStatus('connected'); // Use fallback, so show as connected
-    }
+    // Always show as connected since we use fallback responses
+    setConnectionStatus('connected');
   };
 
   const systemPrompt = `You are Jullian Paragoso's AI assistant. Be concise, helpful, and natural.
@@ -115,70 +102,18 @@ RESPOND: Be friendly, concise (2-3 sentences), provide links when asked. Never s
     setInput('');
     setIsLoading(true);
 
-    try {
-      // If using fallback mode (no Ollama), use predefined responses
-      if (USE_FALLBACK) {
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
-        const aiMessage = {
-          role: 'assistant',
-          content: getFallbackResponse(input)
-        };
-        setMessages(prev => [...prev, aiMessage]);
-        setConnectionStatus('connected');
-        setIsLoading(false);
-        return;
-      }
+    // Simulate AI thinking delay
+    await new Promise(resolve => setTimeout(resolve, 800));
 
-      // Keep only last 6 messages for faster processing (3 exchanges)
-      const recentMessages = messages.slice(-6);
-      
-      const response = await fetch(`${OLLAMA_ENDPOINT}/api/chat`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'hooper216xo/openclaw:latest',
-          messages: [
-            { role: 'system', content: systemPrompt },
-            ...recentMessages.filter(m => m.role !== 'system'),
-            userMessage
-          ],
-          stream: false,
-          options: {
-            temperature: 0.7,
-            top_p: 0.9,
-            top_k: 40,
-            num_predict: 150, // Limit response length for faster replies
-            num_ctx: 2048, // Reduce context window for speed
-          }
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      const aiMessage = {
-        role: 'assistant',
-        content: data.message.content
-      };
-      setMessages(prev => [...prev, aiMessage]);
-      setConnectionStatus('connected');
-    } catch (error) {
-      console.error('Error:', error);
-      // Always use fallback when connection fails
-      const errorMessage = {
-        role: 'assistant',
-        content: getFallbackResponse(input)
-      };
-      setMessages(prev => [...prev, errorMessage]);
-      setConnectionStatus('connected'); // Show as connected since fallback works
-    } finally {
-      setIsLoading(false);
-    }
-  }, [input, messages, systemPrompt]);
+    // Use fallback responses (smart predefined answers)
+    const aiMessage = {
+      role: 'assistant',
+      content: getFallbackResponse(input)
+    };
+    setMessages(prev => [...prev, aiMessage]);
+    setConnectionStatus('connected');
+    setIsLoading(false);
+  }, [input]);
 
   const handleKeyPress = useCallback((e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
