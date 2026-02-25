@@ -190,9 +190,7 @@ const Home = () => {
 }
 
 
-const Body = ({ onOpenAI }) => {
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [selectedSkill, setSelectedSkill] = useState(null);
+const Body = ({ onOpenAI, setSelectedProject, setSelectedSkill }) => {
   
   const bodyRef = useRef(null);
   const aboutRef = useRef(null);
@@ -387,18 +385,6 @@ const Body = ({ onOpenAI }) => {
         <a href="#" className="scroll-to-top">
           <i className="fa-solid fa-arrow-up"></i>
         </a>
-        
-        {/* Modals */}
-        <ProjectModal 
-          project={selectedProject} 
-          isOpen={!!selectedProject} 
-          onClose={() => setSelectedProject(null)} 
-        />
-        <SkillModal 
-          skill={selectedSkill} 
-          isOpen={!!selectedSkill} 
-          onClose={() => setSelectedSkill(null)} 
-        />
     </div>
     </div>
   )
@@ -431,15 +417,33 @@ const FloatingAIButton = ({ onClick }) => {
 const App = () => {
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedSkill, setSelectedSkill] = useState(null);
 
   return (
     <div className="App">
       {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
       <FallingLines />
       <Home />
-      <Body onOpenAI={() => setIsAIChatOpen(true)} />
+      <Body 
+        onOpenAI={() => setIsAIChatOpen(true)}
+        setSelectedProject={setSelectedProject}
+        setSelectedSkill={setSelectedSkill}
+      />
       <FloatingAIButton onClick={() => setIsAIChatOpen(true)} />
       <AIChat isOpen={isAIChatOpen} onClose={() => setIsAIChatOpen(false)} />
+      
+      {/* Modals at App level for proper positioning */}
+      <ProjectModal 
+        project={selectedProject} 
+        isOpen={!!selectedProject} 
+        onClose={() => setSelectedProject(null)} 
+      />
+      <SkillModal 
+        skill={selectedSkill} 
+        isOpen={!!selectedSkill} 
+        onClose={() => setSelectedSkill(null)} 
+      />
     </div>
   )
 }

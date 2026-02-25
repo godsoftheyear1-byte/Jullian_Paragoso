@@ -1,6 +1,18 @@
+import { useEffect } from 'react';
 import './ProjectModal.css'; // Reuse the same styles
 
 const SkillModal = ({ skill, isOpen, onClose }) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [isOpen]);
+
   if (!isOpen || !skill) return null;
 
   return (
