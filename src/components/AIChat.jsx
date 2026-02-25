@@ -11,6 +11,26 @@ const USE_FALLBACK = import.meta.env.VITE_USE_FALLBACK === 'true';
 const getFallbackResponse = (input) => {
   const lowerInput = input.toLowerCase();
   
+  if (lowerInput.includes('github') || lowerInput.includes('git hub') || lowerInput.includes('repository') || lowerInput.includes('repo')) {
+    return "Check out Jullian's GitHub profile: https://github.com/godsoftheyear1-byte\nYou'll find all his projects and code there!";
+  }
+  
+  if (lowerInput.includes('linkedin') || lowerInput.includes('linked in')) {
+    return "Connect with Jullian on LinkedIn: https://www.linkedin.com/in/jullian-paragoso-63a8103b2";
+  }
+  
+  if (lowerInput.includes('facebook') || lowerInput.includes('fb')) {
+    return "Follow Jullian on Facebook: https://www.facebook.com/badomen159/";
+  }
+  
+  if (lowerInput.includes('instagram') || lowerInput.includes('insta') || lowerInput.includes('ig')) {
+    return "Follow Jullian on Instagram: https://www.instagram.com/badomen159/";
+  }
+  
+  if (lowerInput.includes('social') || lowerInput.includes('link')) {
+    return "Here are Jullian's social links:\n🐙 GitHub: https://github.com/godsoftheyear1-byte\n💼 LinkedIn: https://www.linkedin.com/in/jullian-paragoso-63a8103b2\n📘 Facebook: https://www.facebook.com/badomen159/\n📸 Instagram: https://www.instagram.com/badomen159/";
+  }
+  
   if (lowerInput.includes('skill') || lowerInput.includes('technology') || lowerInput.includes('tech stack')) {
     return "Jullian specializes in HTML5, CSS3, JavaScript ES6+, React, Vue.js, Next.js, Node.js, MongoDB, Firebase, GraphQL, Tailwind, and Sass. He's passionate about creating beautiful, responsive web applications!";
   }
@@ -24,7 +44,7 @@ const getFallbackResponse = (input) => {
   }
   
   if (lowerInput.includes('contact') || lowerInput.includes('email') || lowerInput.includes('phone') || lowerInput.includes('reach')) {
-    return "You can reach Jullian at:\n📧 Email: godsoftheyear1@gmail.com\n📱 Phone: 09357413096\n💼 LinkedIn: linkedin.com/in/jullian-paragoso-63a8103b2\n🐙 GitHub: github.com/godsoftheyear1-byte";
+    return "You can reach Jullian at:\n📧 Email: godsoftheyear1@gmail.com\n📱 Phone: 09357413096\n💼 LinkedIn: https://www.linkedin.com/in/jullian-paragoso-63a8103b2\n🐙 GitHub: https://github.com/godsoftheyear1-byte";
   }
   
   if (lowerInput.includes('experience') || lowerInput.includes('background')) {
@@ -35,8 +55,12 @@ const getFallbackResponse = (input) => {
     return "Hey there! 👋 I'm here to help you learn more about Jullian. Feel free to ask about his skills, projects, or how to hire him!";
   }
   
+  if (lowerInput.includes('who') || lowerInput.includes('about')) {
+    return "Jullian Paragoso is a gay developer creating inclusive digital spaces. He's a Frontend Developer specializing in React, Vue, and JavaScript. Self-employed and available for hire!";
+  }
+  
   // Default response
-  return "I'd love to help! You can ask me about Jullian's skills, projects, experience, or how to hire him. For specific questions, feel free to contact Jullian directly at godsoftheyear1@gmail.com!";
+  return "I can help you with:\n• Jullian's skills and technologies\n• His projects and portfolio\n• How to hire him\n• Contact information and social links\n\nWhat would you like to know?";
 };
 
 const AIChat = ({ isOpen, onClose }) => {
