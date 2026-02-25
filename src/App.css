@@ -692,17 +692,23 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  /* Prevent horizontal scroll */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
   /* Navigation */
   .Home {
-    padding: 0 15px;
-    flex-wrap: wrap;
-    justify-content: center;
+    padding: 10px 15px;
+    flex-direction: column;
+    height: auto;
   }
   
   .logo {
     width: 60px;
     height: 60px;
-    margin: 10px auto;
+    margin: 10px 0;
   }
   
   .navbar {
@@ -710,18 +716,33 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     padding: 10px 0;
+    gap: 5px;
   }
   
   .navbar a {
-    font-size: 14px;
-    margin: 5px 10px;
+    font-size: 13px;
+    margin: 5px 8px;
+    padding: 5px 10px;
   }
   
   /* Body Section */
   .body-content {
+    font-size: 16px;
+    margin-top: 180px;
+    padding: 0 15px;
+  }
+  
+  .body-content h1 {
+    font-size: 24px;
+  }
+  
+  .body-content h2 {
     font-size: 18px;
-    margin-top: 120px;
-    padding: 0 20px;
+  }
+  
+  .body-content p {
+    font-size: 14px;
+    line-height: 1.6;
   }
   
   .profile {
@@ -731,44 +752,54 @@ body {
   }
   
   .btn {
-    padding: 12px 25px;
+    padding: 12px 20px;
     font-size: 14px;
-    margin: 8px;
+    margin: 8px 5px;
+  }
+  
+  .body-btn {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
   
   /* About Section */
   .about {
-    padding: 100px 20px 50px;
+    padding: 80px 15px 50px;
     height: auto;
+    min-height: auto;
   }
   
   .about-title {
-    font-size: 32px;
+    font-size: 28px;
+    margin-bottom: 20px;
   }
   
   .about-content {
     flex-direction: column;
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
+    align-items: center;
   }
   
   .about p {
     margin-left: 0;
-    padding: 0 20px;
+    padding: 0 15px;
+    line-height: 1.8;
   }
   
   .keyboard {
-    width: 100%;
-    max-width: 300px;
+    width: 90%;
+    max-width: 280px;
     height: auto;
     aspect-ratio: 1;
-    margin: 30px auto 0;
+    margin: 20px auto;
   }
   
   .btntn {
-    margin: 20px auto;
-    padding: 20px 40px;
-    font-size: 18px;
+    margin: 15px auto;
+    padding: 15px 30px;
+    font-size: 16px;
     display: block;
     width: fit-content;
   }
@@ -776,44 +807,64 @@ body {
   .files {
     position: static;
     margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
   }
   
   /* Experience Section */
   .Experience {
-    padding: 100px 20px 50px;
+    padding: 80px 15px 50px;
   }
   
   .Experience h1 {
-    font-size: 36px;
+    font-size: 28px;
+    margin-bottom: 30px;
   }
   
   .experience-item {
     margin-left: 0;
-    font-size: 18px;
-    padding: 0 20px;
+    font-size: 16px;
+    padding: 0;
   }
   
   .experience-content {
     flex-direction: column;
+    gap: 20px;
   }
   
   .experience1 {
-    margin: 20px 0;
-    padding: 20px;
+    margin: 15px 0;
+    padding: 20px 15px;
+  }
+  
+  .experience1 h2 {
+    font-size: 20px;
+  }
+  
+  .experience1 h3 {
+    font-size: 16px;
+  }
+  
+  .experience1 p {
+    font-size: 14px;
+    margin-top: 15px;
   }
   
   /* Projects Section */
   .Projects {
-    padding: 100px 20px 50px;
+    padding: 80px 15px 50px;
   }
   
   .Projects h1 {
-    font-size: 36px;
+    font-size: 28px;
+    margin-bottom: 30px;
   }
   
   .projects-grid {
     grid-template-columns: 1fr;
-    gap: 25px;
+    gap: 20px;
     padding: 0;
   }
   
@@ -821,52 +872,89 @@ body {
     padding: 25px 20px;
   }
   
+  .project-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+  
+  .project-card h2 {
+    font-size: 20px;
+  }
+  
+  .project-card p {
+    font-size: 14px;
+  }
+  
+  .tag {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
+  
   /* Contact Section */
   .Contact {
-    padding: 100px 20px 50px;
+    padding: 80px 15px 50px;
   }
   
   .Contact h1 {
-    font-size: 36px;
+    font-size: 28px;
+    margin-bottom: 30px;
   }
   
   .contact-content {
     flex-direction: column;
-    margin: 10px;
+    margin: 10px 0;
+    gap: 15px;
   }
   
   .contact-item,
   .contact-item1 {
-    margin: 15px 0;
-    padding: 20px;
+    margin: 10px 0;
+    padding: 20px 15px;
     width: 100%;
+  }
+  
+  .contact-item i,
+  .contact-item1 i {
+    font-size: 36px;
+  }
+  
+  .contact-item h2,
+  .contact-item1 h2 {
+    font-size: 20px;
+  }
+  
+  .contact-item p,
+  .contact-item1 p {
+    font-size: 14px;
   }
   
   /* Floating Elements */
   .scroll-to-top {
     width: 50px;
     height: 50px;
-    bottom: 100px;
-    right: 20px;
+    bottom: 90px;
+    right: 15px;
     font-size: 20px;
   }
   
   .floating-ai-button {
     width: 60px;
     height: 60px;
-    bottom: 20px;
-    right: 20px;
-    font-size: 28px;
+    bottom: 15px;
+    right: 15px;
+    font-size: 26px;
   }
   
   /* Corner Decorations */
   .corner-icon {
     font-size: 40px;
+    opacity: 0.05;
   }
   
   .corner-icon.top-left,
   .corner-icon.top-right {
-    top: 100px;
+    top: 120px;
   }
   
   .corner-icon.bottom-left,
@@ -886,14 +974,30 @@ body {
   
   /* Footer */
   .h4 {
-    font-size: 14px;
+    font-size: 12px;
     padding: 20px 10px;
+    line-height: 1.6;
+  }
+  
+  /* Decorative Arrows */
+  .decorative-arrows {
+    font-size: 30px;
+    margin-top: 30px;
   }
 }
 
 /* Extra Small Devices */
 @media (max-width: 480px) {
   .body-content {
+    font-size: 14px;
+    margin-top: 160px;
+  }
+  
+  .body-content h1 {
+    font-size: 20px;
+  }
+  
+  .body-content h2 {
     font-size: 16px;
   }
   
@@ -903,33 +1007,50 @@ body {
   }
   
   .navbar a {
-    font-size: 12px;
-    margin: 5px 8px;
+    font-size: 11px;
+    margin: 3px 5px;
   }
   
   .about-title,
   .Experience h1,
   .Contact h1,
   .Projects h1 {
-    font-size: 28px;
+    font-size: 24px;
   }
   
   .about-content,
   .experience-item {
-    font-size: 16px;
+    font-size: 14px;
   }
   
   .btntn {
-    padding: 15px 30px;
-    font-size: 16px;
+    padding: 12px 25px;
+    font-size: 14px;
   }
   
   .project-card h2 {
-    font-size: 20px;
+    font-size: 18px;
   }
   
   .project-card p {
+    font-size: 13px;
+  }
+  
+  .experience1 h2 {
+    font-size: 18px;
+  }
+  
+  .experience1 h3 {
     font-size: 14px;
+  }
+  
+  .experience1 p {
+    font-size: 13px;
+  }
+  
+  .btn {
+    padding: 10px 18px;
+    font-size: 13px;
   }
 }
 
