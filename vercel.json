@@ -1,0 +1,10 @@
+{
+  "env": {
+    "VITE_USE_FALLBACK": "true"
+  },
+  "build": {
+    "env": {
+      "VITE_USE_FALLBACK": "true"
+    }
+  }
+}
