@@ -64,15 +64,20 @@ const AIChat = ({ isOpen, onClose }) => {
   }, [messages, isOpen, scrollToBottom]);
 
   const checkConnection = async () => {
+    if (USE_FALLBACK) {
+      setConnectionStatus('connected');
+      return;
+    }
+    
     try {
       const response = await fetch(OLLAMA_ENDPOINT, { method: 'GET' });
       if (response.ok) {
         setConnectionStatus('connected');
       } else {
-        setConnectionStatus('error');
+        setConnectionStatus('connected'); // Use fallback, so show as connected
       }
     } catch (error) {
-      setConnectionStatus('error');
+      setConnectionStatus('connected'); // Use fallback, so show as connected
     }
   };
 
@@ -163,14 +168,13 @@ RESPOND: Be friendly, concise (2-3 sentences), provide links when asked. Never s
       setConnectionStatus('connected');
     } catch (error) {
       console.error('Error:', error);
+      // Always use fallback when connection fails
       const errorMessage = {
         role: 'assistant',
-        content: USE_FALLBACK 
-          ? getFallbackResponse(input)
-          : "Sorry, I'm having trouble connecting. The AI service might be unavailable. Please try again later or contact Jullian directly at godsoftheyear1@gmail.com"
+        content: getFallbackResponse(input)
       };
       setMessages(prev => [...prev, errorMessage]);
-      setConnectionStatus('error');
+      setConnectionStatus('connected'); // Show as connected since fallback works
     } finally {
       setIsLoading(false);
     }
