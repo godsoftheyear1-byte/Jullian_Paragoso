@@ -5,6 +5,39 @@ import './AIChat.css';
 // For local development: 'http://localhost:11434'
 // For production: 'http://YOUR_VM_IP:11434' or your cloud endpoint
 const OLLAMA_ENDPOINT = import.meta.env.VITE_OLLAMA_ENDPOINT || 'http://localhost:11434';
+const USE_FALLBACK = import.meta.env.VITE_USE_FALLBACK === 'true';
+
+// Fallback responses when Ollama is not available
+const getFallbackResponse = (input) => {
+  const lowerInput = input.toLowerCase();
+  
+  if (lowerInput.includes('skill') || lowerInput.includes('technology') || lowerInput.includes('tech stack')) {
+    return "Jullian specializes in HTML5, CSS3, JavaScript ES6+, React, Vue.js, Next.js, Node.js, MongoDB, Firebase, GraphQL, Tailwind, and Sass. He's passionate about creating beautiful, responsive web applications!";
+  }
+  
+  if (lowerInput.includes('project') || lowerInput.includes('portfolio') || lowerInput.includes('work')) {
+    return "Jullian has built amazing projects including an e-commerce platform handling 1000+ daily transactions, a real-time task manager with drag-and-drop, an analytics dashboard processing 100k+ data points, and more! Scroll down to see the full portfolio.";
+  }
+  
+  if (lowerInput.includes('hire') || lowerInput.includes('available') || lowerInput.includes('freelance') || lowerInput.includes('job')) {
+    return "Yes! Jullian is available for freelance, contract, and full-time opportunities. He's remote-friendly and offers competitive rates. Contact him at godsoftheyear1@gmail.com or call 09357413096!";
+  }
+  
+  if (lowerInput.includes('contact') || lowerInput.includes('email') || lowerInput.includes('phone') || lowerInput.includes('reach')) {
+    return "You can reach Jullian at:\n📧 Email: godsoftheyear1@gmail.com\n📱 Phone: 09357413096\n💼 LinkedIn: linkedin.com/in/jullian-paragoso-63a8103b2\n🐙 GitHub: github.com/godsoftheyear1-byte";
+  }
+  
+  if (lowerInput.includes('experience') || lowerInput.includes('background')) {
+    return "Jullian is a self-employed Frontend Developer and Software Engineer with expertise in creating responsive, user-centric web interfaces. He's passionate about building inclusive digital spaces and has experience with full-stack development.";
+  }
+  
+  if (lowerInput.includes('hello') || lowerInput.includes('hi') || lowerInput.includes('hey')) {
+    return "Hey there! 👋 I'm here to help you learn more about Jullian. Feel free to ask about his skills, projects, or how to hire him!";
+  }
+  
+  // Default response
+  return "I'd love to help! You can ask me about Jullian's skills, projects, experience, or how to hire him. For specific questions, feel free to contact Jullian directly at godsoftheyear1@gmail.com!";
+};
 
 const AIChat = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([
@@ -78,6 +111,19 @@ RESPOND: Be friendly, concise (2-3 sentences), provide links when asked. Never s
     setIsLoading(true);
 
     try {
+      // If using fallback mode (no Ollama), use predefined responses
+      if (USE_FALLBACK) {
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
+        const aiMessage = {
+          role: 'assistant',
+          content: getFallbackResponse(input)
+        };
+        setMessages(prev => [...prev, aiMessage]);
+        setConnectionStatus('connected');
+        setIsLoading(false);
+        return;
+      }
+
       // Keep only last 6 messages for faster processing (3 exchanges)
       const recentMessages = messages.slice(-6);
       
@@ -119,7 +165,9 @@ RESPOND: Be friendly, concise (2-3 sentences), provide links when asked. Never s
       console.error('Error:', error);
       const errorMessage = {
         role: 'assistant',
-        content: "Sorry, I'm having trouble connecting. Make sure Ollama is running. You can start it by running 'ollama serve' in your terminal."
+        content: USE_FALLBACK 
+          ? getFallbackResponse(input)
+          : "Sorry, I'm having trouble connecting. The AI service might be unavailable. Please try again later or contact Jullian directly at godsoftheyear1@gmail.com"
       };
       setMessages(prev => [...prev, errorMessage]);
       setConnectionStatus('error');
