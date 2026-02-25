@@ -18,8 +18,8 @@ Keep the first terminal running, and open a NEW terminal window.
 ### Step 3: Run ngrok
 In the new terminal, run:
 ```bash
-ngrok http 5173
-```
+
+```ngrok http 5173
 
 Replace `5173` with your actual port number if different.
 

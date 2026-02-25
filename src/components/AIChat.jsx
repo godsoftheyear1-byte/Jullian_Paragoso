@@ -1,6 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import './AIChat.css';
 
+// Configure your Ollama endpoint here
+// For local development: 'http://localhost:11434'
+// For production: 'http://YOUR_VM_IP:11434' or your cloud endpoint
+const OLLAMA_ENDPOINT = import.meta.env.VITE_OLLAMA_ENDPOINT || 'http://localhost:11434';
+
 const AIChat = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([
     {
@@ -27,7 +32,7 @@ const AIChat = ({ isOpen, onClose }) => {
 
   const checkConnection = async () => {
     try {
-      const response = await fetch('http://localhost:11434', { method: 'GET' });
+      const response = await fetch(OLLAMA_ENDPOINT, { method: 'GET' });
       if (response.ok) {
         setConnectionStatus('connected');
       } else {
@@ -76,7 +81,7 @@ RESPOND: Be friendly, concise (2-3 sentences), provide links when asked. Never s
       // Keep only last 6 messages for faster processing (3 exchanges)
       const recentMessages = messages.slice(-6);
       
-      const response = await fetch('http://localhost:11434/api/chat', {
+      const response = await fetch(`${OLLAMA_ENDPOINT}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
