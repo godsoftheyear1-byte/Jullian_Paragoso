@@ -346,7 +346,7 @@ const Body = ({ onOpenAI, setSelectedProject, setSelectedSkill }) => {
     <div id="contact" ref={contactRef} className="Contact fade-in-section">
       <h1><i className="fa-solid fa-paper-plane"></i> Contact</h1>
       <div className="contact-content">
-        <a href="https://mail.google.com/mail/u/0/#inbox?compose=DVgPXsJjSfvjjXjdhkTcdNrQWmmpBhMwhVBLshXghLvsrvqmzsWTWZkjJTwmhGfrphmJLQnfJjCSDjqsxfQDZdbtmBmNmsVLbMmvtnWvqWNDZCsGDMLnRdSSlfgDFbrTXRcfkTSMRQfsjXVhzwzCwqJhDgrbTbwsHvRMXKnfCNVJnSNQgllFZSGktFmdtWTdNdrVNWhxRvJWWLdGHkFqlCRCqqSXtLRRjRktLHqLFWT" className="contact-item card-beam" title="Send an email to Jullian">
+        <a href="mailto:godsoftheyear1@gmail.com" className="contact-item card-beam" title="Send an email to Jullian">
           <i className="fa-regular fa-envelope"></i>
           <h2>Email</h2>
           <p>godsoftheyear1@gmail.com</p>
