@@ -16,8 +16,8 @@ const getFallbackResponse = (input) => {
     return "Yes! Jullian is a proud gay god, a gay boy who can fly and do anything! He's an immortal gay star shining bright in the tech world. 🌟✨ He's passionate about creating inclusive digital spaces where technology meets identity. A true gay icon in the developer community! 🏳️‍🌈💫";
   }
 
-  if (lowerInput.includes('gay omen') || lowerInput.includes('sexuality') || lowerInput.includes('lgbtq')) {
-    return "gay omen jullian sercet code, you unlock the code link:https://www.facebook.com/reel/886825907451354,and you will see the secret code, and you will be able to unlock the gay code, and you will be able to see the link :https://www.facebook.com/reel/1591466625432082/,";
+  if (lowerInput.includes('badomen') || lowerInput.includes('secret') || lowerInput.includes('code')) {
+    return "gay omen jullian sercet code, you unlock the code link:https://www.facebook.com/reel/886825907451354/,and you will see the secret code, and you will be able to unlock the gay code, and you will be able to see the link :https://www.facebook.com/reel/1591466625432082/,";
   }
   
   if (lowerInput.includes('github') || lowerInput.includes('git hub') || lowerInput.includes('repository') || lowerInput.includes('repo')) {
