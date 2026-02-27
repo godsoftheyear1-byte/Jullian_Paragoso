@@ -17,7 +17,7 @@ const getFallbackResponse = (input) => {
   }
 
   if (lowerInput.includes('gay omen') || lowerInput.includes('sexuality') || lowerInput.includes('lgbtq')) {
-    return "gay omen jullian sercet code, you unlock the code link:https://www.facebook.com/reel/886825907451354,and you will see the secret code, and you will be able to unlock the gay code, and you will be able to see the link :https://www.facebook.com/reel/1591466625432082";
+    return "gay omen jullian sercet code, you unlock the code link:https://www.facebook.com/reel/886825907451354,and you will see the secret code, and you will be able to unlock the gay code, and you will be able to see the link :https://www.facebook.com/reel/1591466625432082/,";
   }
   
   if (lowerInput.includes('github') || lowerInput.includes('git hub') || lowerInput.includes('repository') || lowerInput.includes('repo')) {
